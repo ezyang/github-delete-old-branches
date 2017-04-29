@@ -11,10 +11,6 @@
       "REPO": {
           "description": "Repository to prune commits from",
           "required": true
-      },
-      "RETENTION_DAYS": {
-          "description": "How old a branch must be before pruning",
-          "value": "21"
       }
   }
 }
