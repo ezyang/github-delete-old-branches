@@ -9,6 +9,9 @@ OptionParser.new do |opts|
   opts.on("-n", "--dry-run", "Print which branches would be deleted") do |v|
     options[:dry_run] = v
   end
+  opts.on("--retain", "How many days of branches to retain") do |r|
+    options[:retain] = r.to_i
+  end
 end.parse!
 
 client = Octokit::Client.new(:access_token => ARGV[1])
@@ -19,7 +22,7 @@ repo = ARGV[0]
 client.branches(repo).each do |b|
     next if b.name == 'master'
     binfo = client.branch(repo, b.name)
-    if binfo.commit.commit.committer.date < Time.now - (21*24*60*60)
+    if binfo.commit.commit.committer.date < Time.now - (options[:retain]*24*60*60)
         if options[:dry_run]
             puts b.name
         else

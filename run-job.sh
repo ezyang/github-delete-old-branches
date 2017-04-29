@@ -1,2 +1,2 @@
 #!/bin/sh
-ruby "$REPO" "$ACCESS_TOKEN"
+ruby --retain "$RETENTION_DAYS" "$REPO" "$ACCESS_TOKEN"
